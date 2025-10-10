@@ -1,0 +1,58 @@
+<?php
+session_start();
+require_once 'php/db_connect.php';
+require_once 'templates/header-auth.php';
+
+// Ensure user has passed the ID check
+if (!isset($_SESSION['password_reset_id_number'])) {
+    header('Location: forgot_password.php');
+    exit();
+}
+
+$id_number = $_SESSION['password_reset_id_number'];
+
+// Fetch the user's questions from the database
+// In a real application, you would have a table mapping question IDs to question text.
+// For this project, we'll use a hardcoded array based on the registration form.
+$questions = [
+    1 => 'Who is your best friend in Elementary?',
+    2 => 'What is the name of your favorite pet?',
+    3 => 'Who is your favorite teacher in high school?'
+];
+
+$error = $_SESSION['error'] ?? '';
+unset($_SESSION['error']);
+?>
+
+<div class="container">
+    <h2>Answer Security Questions</h2>
+    <p>Please answer the following questions to verify your identity.</p>
+
+    <?php if ($error): ?>
+        <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
+    <?php endif; ?>
+
+    <form action="php/reset_password_process.php" method="post">
+        <div class="form-group">
+            <label><?php echo $questions[1]; ?></label>
+            <input type="text" name="answer1" required>
+            <label>Re-enter Answer:</label>
+            <input type="text" name="re_answer1" required>
+        </div>
+        <div class="form-group">
+            <label><?php echo $questions[2]; ?></label>
+            <input type="text" name="answer2" required>
+            <label>Re-enter Answer:</label>
+            <input type="text" name="re_answer2" required>
+        </div>
+        <div class="form-group">
+            <label><?php echo $questions[3]; ?></label>
+            <input type="text" name="answer3" required>
+            <label>Re-enter Answer:</label>
+            <input type="text" name="re_answer3" required>
+        </div>
+        <button type="submit">Verify Answers</button>
+    </form>
+</div>
+
+<?php require_once 'templates/footer.php'; ?>
