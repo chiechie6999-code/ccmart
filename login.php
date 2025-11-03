@@ -36,7 +36,7 @@ unset($_SESSION['errors'], $_SESSION['input'], $_SESSION['success_message']); //
             <label for="password">Password <span class="required">*</span></label>
             <div class="password-field">
                 <input type="password" name="password" id="password" required>
-                <button type="button" class="toggle-password">Show</button>
+                <button type="button" class="toggle-password"></button>
             </div>
         </div>
 

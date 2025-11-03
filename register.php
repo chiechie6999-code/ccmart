@@ -72,7 +72,7 @@ unset($_SESSION['errors'], $_SESSION['input']);
             <label for="password">Password <span class="required">*</span></label>
             <div class="password-field">
                 <input type="password" name="password" id="password" required>
-                <button type="button" class="toggle-password">Show</button>
+                <button type="button" class="toggle-password"></button>
             </div>
             <div id="password-strength"></div>
             <div class="error" id="password_error"><?php echo htmlspecialchars($errors['password'] ?? ''); ?></div>
@@ -81,7 +81,7 @@ unset($_SESSION['errors'], $_SESSION['input']);
             <label for="re_password">Re-enter Password <span class="required">*</span></label>
             <div class="password-field">
                 <input type="password" name="re_password" id="re_password" required>
-                <button type="button" class="toggle-password">Show</button>
+                <button type="button" class="toggle-password"></button>
             </div>
             <div class="error" id="re_password_error"><?php echo htmlspecialchars($errors['re_password'] ?? ''); ?></div>
         </div>
@@ -91,7 +91,7 @@ unset($_SESSION['errors'], $_SESSION['input']);
             <label for="answer1">Who is your best friend in Elementary? <span class="required">*</span></label>
             <div class="password-field">
                 <input type="password" name="answer1" id="answer1" value="<?php echo htmlspecialchars($input['answer1'] ?? ''); ?>" required>
-                <button type="button" class="toggle-password">Show</button>
+                <button type="button" class="toggle-password"></button>
             </div>
             <div class="error" id="answer1_error"><?php echo htmlspecialchars($errors['answer1'] ?? ''); ?></div>
         </div>
@@ -99,7 +99,7 @@ unset($_SESSION['errors'], $_SESSION['input']);
             <label for="answer2">What is the name of your favorite pet? <span class="required">*</span></label>
             <div class="password-field">
                 <input type="password" name="answer2" id="answer2" value="<?php echo htmlspecialchars($input['answer2'] ?? ''); ?>" required>
-                <button type="button" class="toggle-password">Show</button>
+                <button type="button" class="toggle-password"></button>
             </div>
             <div class="error" id="answer2_error"><?php echo htmlspecialchars($errors['answer2'] ?? ''); ?></div>
         </div>
@@ -107,7 +107,7 @@ unset($_SESSION['errors'], $_SESSION['input']);
             <label for="answer3">Who is your favorite teacher in high school? <span class="required">*</span></label>
             <div class="password-field">
                 <input type="password" name="answer3" id="answer3" value="<?php echo htmlspecialchars($input['answer3'] ?? ''); ?>" required>
-                <button type="button" class="toggle-password">Show</button>
+                <button type="button" class="toggle-password"></button>
             </div>
             <div class="error" id="answer3_error"><?php echo htmlspecialchars($errors['answer3'] ?? ''); ?></div>
         </div>

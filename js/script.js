@@ -2,14 +2,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // General function to toggle password visibility
     function addTogglePasswordVisibility() {
         document.querySelectorAll('.toggle-password').forEach(button => {
+            // Set initial state
+            button.classList.add('show');
+
             button.addEventListener('click', function() {
                 const passwordField = this.previousElementSibling;
                 if (passwordField.type === 'password') {
                     passwordField.type = 'text';
-                    this.textContent = 'Hide';
+                    this.classList.remove('show');
+                    this.classList.add('hide');
                 } else {
                     passwordField.type = 'password';
-                    this.textContent = 'Show';
+                    this.classList.remove('hide');
+                    this.classList.add('show');
                 }
             });
         });

@@ -37,36 +37,36 @@ unset($_SESSION['error']);
             <label><?php echo $questions[1]; ?></label>
             <div class="password-field">
                 <input type="password" name="answer1" required>
-                <button type="button" class="toggle-password">Show</button>
+                <button type="button" class="toggle-password"></button>
             </div>
             <label>Re-enter Answer:</label>
             <div class="password-field">
                 <input type="password" name="re_answer1" required>
-                <button type="button" class="toggle-password">Show</button>
+                <button type="button" class="toggle-password"></button>
             </div>
         </div>
         <div class="form-group">
             <label><?php echo $questions[2]; ?></label>
             <div class="password-field">
                 <input type="password" name="answer2" required>
-                <button type="button" class="toggle-password">Show</button>
+                <button type="button" class="toggle-password"></button>
             </div>
             <label>Re-enter Answer:</label>
             <div class="password-field">
                 <input type="password" name="re_answer2" required>
-                <button type="button" class="toggle-password">Show</button>
+                <button type="button" class="toggle-password"></button>
             </div>
         </div>
         <div class="form-group">
             <label><?php echo $questions[3]; ?></label>
             <div class="password-field">
                 <input type="password" name="answer3" required>
-                <button type="button" class="toggle-password">Show</button>
+                <button type="button" class="toggle-password"></button>
             </div>
             <label>Re-enter Answer:</label>
             <div class="password-field">
                 <input type="password" name="re_answer3" required>
-                <button type="button" class="toggle-password">Show</button>
+                <button type="button" class="toggle-password"></button>
             </div>
         </div>
         <button type="submit">Verify Answers</button>

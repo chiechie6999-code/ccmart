@@ -29,7 +29,7 @@ unset($_SESSION['error'], $_SESSION['message']);
             <label for="password">Enter Password <span class="required">*</span></label>
             <div class="password-field">
                 <input type="password" name="password" id="password" required>
-                <button type="button" class="toggle-password">Show</button>
+                <button type="button" class="toggle-password"></button>
             </div>
             <div id="password-strength"></div>
         </div>
@@ -37,7 +37,7 @@ unset($_SESSION['error'], $_SESSION['message']);
             <label for="re_password">Re-enter Password <span class="required">*</span></label>
             <div class="password-field">
                 <input type="password" name="re_password" id="re_password" required>
-                <button type="button" class="toggle-password">Show</button>
+                <button type="button" class="toggle-password"></button>
             </div>
         </div>
         <button type="submit">Change Password</button>

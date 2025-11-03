@@ -156,17 +156,28 @@ footer {
 
 .toggle-password {
     position: absolute;
-    right: 5px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     background: transparent;
     border: none;
     cursor: pointer;
-    color: #666;
     padding: 5px;
-    width: auto;
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
 }
 
-.toggle-password:hover {
-    color: #333;
+.toggle-password.show {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E");
+}
+
+.toggle-password.hide {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9.88 9.88a3 3 0 1 0 4.24 4.24'/%3E%3Cpath d='M10.73 10.73C12.555 9.49 15.362 9.123 18 10c2.638.877 5 3.377 5 5 0 1.623-2.362 4.123-5 5-2.638.877-5.445.51-7.27-1.27'/%3E%3Cpath d='m2 12 5-5c2.638-.877 5.445-.51 7.27 1.27'/%3E%3Cpath d='M2 2 22 22'/%3E%3C/svg%3E");
+}
+
+.password-field input {
+    padding-right: 45px; /* Adjust padding to avoid text overlapping the icon */
 }
