@@ -1,4 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // General function to toggle password visibility
+    function addTogglePasswordVisibility() {
+        document.querySelectorAll('.toggle-password').forEach(button => {
+            button.addEventListener('click', function() {
+                const passwordField = this.previousElementSibling;
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    this.textContent = 'Hide';
+                } else {
+                    passwordField.type = 'password';
+                    this.textContent = 'Show';
+                }
+            });
+        });
+    }
+
+    addTogglePasswordVisibility();
+
     const registerForm = document.getElementById('register-form');
     if (registerForm) {
         // Age calculation
@@ -112,17 +130,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginContainer = document.querySelector('.container[data-login-attempts]');
     if (loginContainer) {
         const loginForm = document.getElementById('login-form');
-        const showPasswordCheckbox = document.getElementById('show-password');
-        const passwordInput = document.getElementById('password');
         const forgotPasswordContainer = document.getElementById('forgot-password-container');
         const loginButton = document.getElementById('login-button');
         const registerLink = document.getElementById('register-link');
         const errorMessageDiv = document.getElementById('login-error-message');
-
-        // Show/hide password
-        showPasswordCheckbox.addEventListener('change', function() {
-            passwordInput.type = this.checked ? 'text' : 'password';
-        });
 
         // Show "Forgot Password?" link
         const loginAttempts = parseInt(loginContainer.dataset.loginAttempts, 10);

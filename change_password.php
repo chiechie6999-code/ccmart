@@ -27,12 +27,18 @@ unset($_SESSION['error'], $_SESSION['message']);
     <form action="php/change_password_process.php" method="post" id="change-password-form">
         <div class="form-group">
             <label for="password">Enter Password <span class="required">*</span></label>
-            <input type="password" name="password" id="password" required>
+            <div class="password-field">
+                <input type="password" name="password" id="password" required>
+                <button type="button" class="toggle-password">Show</button>
+            </div>
             <div id="password-strength"></div>
         </div>
         <div class="form-group">
             <label for="re_password">Re-enter Password <span class="required">*</span></label>
-            <input type="password" name="re_password" id="re_password" required>
+            <div class="password-field">
+                <input type="password" name="re_password" id="re_password" required>
+                <button type="button" class="toggle-password">Show</button>
+            </div>
         </div>
         <button type="submit">Change Password</button>
     </form>

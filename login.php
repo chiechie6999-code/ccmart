@@ -34,10 +34,9 @@ unset($_SESSION['errors'], $_SESSION['input'], $_SESSION['success_message']); //
         </div>
         <div class="form-group">
             <label for="password">Password <span class="required">*</span></label>
-            <input type="password" name="password" id="password" required>
-            <div class="show-password-container">
-                <input type="checkbox" id="show-password">
-                <label for="show-password">Show Password</label>
+            <div class="password-field">
+                <input type="password" name="password" id="password" required>
+                <button type="button" class="toggle-password">Show</button>
             </div>
         </div>
 
