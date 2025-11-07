@@ -13,10 +13,201 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
                     age--;
                 }
+            // Family Name specific capitalization
+            const familyNameInput = document.getElementById('family_name');
+            const familyNameError = document.getElementById('family_name_error');
+            const familyVal = familyNameInput.value.trim();
+            if (familyVal && /^[a-z]/.test(familyVal)) {
+                familyNameError.textContent = 'First Letter of your family name must start with capital';
+                isValid = false;
+            }
                 ageInput.value = age;
                 validateAge(age);
             } else {
                 ageInput.value = '';
+            }
+        });
+
+        // Form validation for registration
+
+                var idEl = document.getElementById('id_number');
+        // Live validation helpers
+        function attachValidation(inputId, errorId, validateFn) {
+            const input = document.getElementById(inputId);
+            const err = document.getElementById(errorId);
+            if (!input) return;
+            const handler = () => {
+                const res = validateFn(input.value.trim());
+                if (res === true) {
+                    setValid(input, err);
+                } else if (typeof res === 'string') {
+                    setInvalid(input, err, res);
+                }
+            };
+            input.addEventListener('input', handler);
+            if (input.type === 'date') input.addEventListener('change', handler);
+        }
+
+        // Client-side validation for registration form
+        registerForm.addEventListener('submit', function(e) {
+            let isValid = true;
+
+            // Clear previous errors
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
+
+            // Validate all fields
+            const fields = [
+                { id: 'id_number', errorId: 'id_number_error', validate: v => /^\d{4}-\d{4}$/.test(v) ? true : 'ID Number must be in the format xxxx-xxxx.' },
+                { 
+                    id: 'username', 
+                    errorId: 'username_error', 
+                    validate: v => {
+                        if (!v) return 'Username is required.';
+                        if (v.length < 3) return 'Username must be at least 3 characters.';
+                        if (v.length > 50) return 'Username cannot exceed 50 characters.';
+                        if (!/^[a-zA-Z0-9_]+$/.test(v)) return 'Username can only contain letters, numbers, and underscores.';
+                        return true;
+                    }
+                },
+                { 
+                    id: 'first_name', 
+                    errorId: 'first_name_error', 
+                    validate: v => {
+                        const result = validateNameField(v, 'First Name');
+                        return result.isValid ? true : result.message;
+                    }
+                },
+                { 
+                    id: 'middle_name', 
+                    errorId: 'middle_name_error', 
+                    validate: v => {
+                        if (!v) return true; // Optional field
+                        const result = validateNameField(v, 'Middle Name');
+                        return result.isValid ? true : result.message;
+                    }
+                },
+                { 
+                    id: 'family_name', 
+                    errorId: 'family_name_error', 
+                    validate: v => {
+                        const result = validateNameField(v, 'Family Name');
+                        return result.isValid ? true : result.message;
+                    }
+                },
+                { 
+                    id: 'name_extension', 
+                    errorId: 'name_extension_error', 
+                    validate: v => {
+                        if (!v) return true; // Optional field
+                        if (!/^[A-Za-z\s.,]+$/.test(v)) return 'Name Extension contains invalid characters.';
+                        if (v.length > 10) return 'Name Extension cannot exceed 10 characters.';
+                        return true;
+                    }
+                },
+                { id: 'birthdate', errorId: 'birthdate_error', validate: v => {
+                    if (!v) return 'Birthdate is required.';
+                    const birthDate = new Date(v);
+                    const today = new Date();
+                    let age = today.getFullYear() - birthDate.getFullYear();
+                    const m = today.getMonth() - birthDate.getMonth();
+                    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                        age--;
+                    }
+                    if (age < 18) return 'You must be at least 18 years old to register.';
+                    return true;
+                }},
+                { 
+                    id: 'purok_street', 
+                    errorId: 'purok_street_error', 
+                    validate: v => {
+                        if (!v) return 'Purok/Street is required.';
+                        if (v.length > 100) return 'Purok/Street cannot exceed 100 characters.';
+                        return true;
+                    }
+                },
+                { 
+                    id: 'barangay', 
+                    errorId: 'barangay_error', 
+                    validate: v => {
+                        if (!v) return 'Barangay is required.';
+                        if (v.length > 50) return 'Barangay cannot exceed 50 characters.';
+                        return true;
+                    }
+                },
+                { 
+                    id: 'municipality_city', 
+                    errorId: 'municipality_city_error', 
+                    validate: v => {
+                        if (!v) return 'Municipality/City is required.';
+                        if (v.length > 50) return 'Municipality/City cannot exceed 50 characters.';
+                        return true;
+                    }
+                },
+                { 
+                    id: 'province', 
+                    errorId: 'province_error', 
+                    validate: v => {
+                        if (!v) return 'Province is required.';
+                        if (v.length > 50) return 'Province cannot exceed 50 characters.';
+                        return true;
+                    }
+                },
+                { 
+                    id: 'country', 
+                    errorId: 'country_error', 
+                    validate: v => {
+                        if (!v) return 'Country is required.';
+                        if (v.length > 50) return 'Country cannot exceed 50 characters.';
+                        return true;
+                    }
+                },
+                { 
+                    id: 'zip_code', 
+                    errorId: 'zip_code_error', 
+                    validate: v => {
+                        if (!v) return 'ZIP code is required.';
+                        if (!/^\d{4}$/.test(v)) return 'ZIP code must be exactly 4 digits.';
+                        return true;
+                    }
+                },
+                { id: 'password', errorId: 'password_error', validate: v => {
+                    if (!v) return 'Password is required.';
+                    if (v.length < 8) return 'Password must be at least 8 characters.';
+                    if (!/[A-Z]/.test(v)) return 'Password must contain at least one uppercase letter.';
+                    if (!/[a-z]/.test(v)) return 'Password must contain at least one lowercase letter.';
+                    if (!/\d/.test(v)) return 'Password must contain at least one number.';
+                    return true;
+                }},
+                { id: 're_password', errorId: 're_password_error', validate: v => {
+                    if (!v) return 'Please confirm your password.';
+                    if (v !== document.getElementById('password').value) return 'Passwords do not match.';
+                    return true;
+                }},
+                { id: 'answer1', errorId: 'answer1_error', validate: v => v ? true : 'Answer is required.' },
+                { id: 'answer2', errorId: 'answer2_error', validate: v => v ? true : 'Answer is required.' },
+                { id: 'answer3', errorId: 'answer3_error', validate: v => v ? true : 'Answer is required.' }
+            ];
+
+            fields.forEach(field => {
+                const input = document.getElementById(field.id);
+                const errorEl = document.getElementById(field.errorId);
+                if (input && errorEl) {
+                    const result = field.validate(input.value.trim());
+                    if (result !== true) {
+                        errorEl.textContent = result;
+                        isValid = false;
+                        // Scroll to the first error
+                        if (isValid === false) {
+                            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            input.focus();
+                            isValid = null; // Prevent further scrolling
+                        }
+                    }
+                }
+            });
+
+            if (!isValid) {
+                e.preventDefault();
             }
         });
 
@@ -26,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
         usernameInput.addEventListener('blur', function() {
             const username = this.value;
             if (username.length > 0) {
-                fetch('php/check_username.php', {
+                fetch('/ccmart/php/check_username.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: 'username=' + encodeURIComponent(username)
@@ -34,9 +225,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.text())
                 .then(data => {
                     if (data === 'taken') {
-                        usernameError.textContent = 'Username is already taken.';
+                        setInvalid(usernameInput, usernameError, 'Username is already taken.');
+                    } else if (!/^[A-Za-z0-9_]{4,50}$/.test(username)) {
+                        setInvalid(usernameInput, usernameError, 'Username must be 4-50 characters, letters/numbers/underscore only.');
                     } else {
-                        usernameError.textContent = '';
+                        setValid(usernameInput, usernameError);
                     }
                 });
             }
@@ -80,8 +273,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 isValid = false;
             }
 
-            // Name Fields Validation
-            ['first_name', 'middle_name', 'family_name'].forEach(fieldName => {
+            // Name Fields Validation (generic)
+            ['middle_name', 'family_name'].forEach(fieldName => {
                 const input = document.getElementById(fieldName);
                 const errorEl = document.getElementById(fieldName + '_error');
                 if (input.value && !validateName(input.value)) {
@@ -89,18 +282,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     isValid = false;
                 }
             });
-
-            // Age Validation
-            if (!validateAge(parseInt(ageInput.value, 10))) {
-                isValid = false;
-            }
-
-            // Password Match
             const rePasswordInput = document.getElementById('re_password');
             if (passwordInput.value !== rePasswordInput.value) {
-                document.getElementById('re_password_error').textContent = 'Passwords do not match.';
+                setInvalid(rePasswordInput, document.getElementById('re_password_error'), 'Passwords do not match.');
                 isValid = false;
-            }
+            } else { setValid(rePasswordInput, document.getElementById('re_password_error')); }
 
             if (!isValid) {
                 e.preventDefault();
@@ -108,21 +294,55 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Generic show/hide password toggles
+    document.querySelectorAll('.toggle-password').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const input = document.getElementById(targetId);
+            if (!input) return;
+            if (input.type === 'password') {
+                input.type = 'text';
+                this.classList.add('show');
+                this.classList.remove('hide');
+            } else {
+                input.type = 'password';
+                this.classList.add('hide');
+                this.classList.remove('show');
+            }
+        });
+    });
+
     // Login page logic
     const loginContainer = document.querySelector('.container[data-login-attempts]');
     if (loginContainer) {
         const loginForm = document.getElementById('login-form');
-        const showPasswordCheckbox = document.getElementById('show-password');
         const passwordInput = document.getElementById('password');
         const forgotPasswordContainer = document.getElementById('forgot-password-container');
         const loginButton = document.getElementById('login-button');
         const registerLink = document.getElementById('register-link');
         const errorMessageDiv = document.getElementById('login-error-message');
 
-        // Show/hide password
-        showPasswordCheckbox.addEventListener('change', function() {
-            passwordInput.type = this.checked ? 'text' : 'password';
-        });
+        // Disable browser back button on login page
+        (function disableBackButton(){
+            history.pushState(null, '', location.href);
+            window.onpopstate = function () {
+                history.pushState(null, '', location.href);
+            };
+        })();
+
+        // Client-side validation for login
+        if (loginForm) {
+            loginForm.addEventListener('submit', function(e){
+                const userEl = document.getElementById('username');
+                const userVal = (userEl && userEl.value ? userEl.value.trim() : '');
+                const passVal = (passwordInput && passwordInput.value ? passwordInput.value : '');
+                const usernameOk = /^[A-Za-z0-9_]{4,50}$/.test(userVal);
+                if (!usernameOk || !passVal) {
+                    e.preventDefault();
+                    errorMessageDiv.textContent = !usernameOk ? 'Invalid username. Use 4-50 letters, numbers, or underscore.' : 'Password is required.';
+                }
+            });
+        }
 
         // Show "Forgot Password?" link
         const loginAttempts = parseInt(loginContainer.dataset.loginAttempts, 10);
@@ -158,34 +378,84 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-function validateName(name) {
-    // This function provides client-side feedback. The server-side validation is the source of truth.
-    if (!name) return true; // for optional fields
+function validateName(name, fieldName = 'Name') {
+    if (!name) return { isValid: true }; // for optional fields
 
-    // Rule: Allow letters, spaces, dots, apostrophes
-    if (!/^[a-zA-Z\s\.\']*$/.test(name)) {
-        return false;
+    // Rule: Only allow letters and single spaces
+    if (!/^[a-zA-Z\s]+$/.test(name)) {
+        return { 
+            isValid: false, 
+            message: `${fieldName} should only contain letters and single spaces.`
+        };
     }
+    
     // Rule: No numbers
     if (/\d/.test(name)) {
-        return false;
+        return { 
+            isValid: false, 
+            message: `${fieldName} should not contain numbers.`
+        };
     }
+    
     // Rule: No double spaces
-    if (/\s\s/.test(name)) {
-        return false;
+    if (/\s{2,}/.test(name)) {
+        return { 
+            isValid: false, 
+            message: `${fieldName} should not contain multiple spaces.`
+        };
     }
-    // Rule: Not all capital letters (if longer than a single initial)
+    
+    // Rule: Not all capital letters (if longer than a single character)
     if (name.length > 1 && name === name.toUpperCase()) {
-        return false;
+        return { 
+            isValid: false, 
+            message: `${fieldName} should not be all uppercase.`
+        };
     }
-    // Rule: No three consecutive same letters (case-insensitive)
-    if (/([a-zA-Z])\1\1/i.test(name)) {
-        return false;
+    
+    // Rule: No three or more consecutive same letters (case-insensitive)
+    if (/([a-zA-Z])\1{2,}/i.test(name)) {
+        return { 
+            isValid: false, 
+            message: `${fieldName} contains too many repeated letters.`
+        };
     }
-
-    // The strict capitalization rule is handled by the server, as it has more complex exceptions.
-    // This prevents the client from incorrectly flagging valid names like "O'Malley" or "John M.".
-    return true;
+    
+    // Rule: First letter of each word must be uppercase, rest lowercase
+    const words = name.split(/\s+/);
+    for (const word of words) {
+        if (word.length > 0 && !/^[A-Z][a-z]*$/.test(word)) {
+            return { 
+                isValid: false, 
+                message: `Each word in ${fieldName} must start with an uppercase letter followed by lowercase letters.`
+            };
+        }
+    }
+    
+    // Rule: No numbers followed by letters (redundant with no numbers check, but kept for completeness)
+    if (/\d[a-zA-Z]/.test(name)) {
+        return { 
+            isValid: false, 
+            message: `${fieldName} contains invalid character sequence.`
+        };
+    }
+    
+    // Length validation
+    if (name.length < 2) {
+        return { 
+            isValid: false, 
+            message: `${fieldName} must be at least 2 characters long.`
+        };
+    }
+    
+    if (name.length > 50) {
+        return { 
+            isValid: false, 
+            message: `${fieldName} cannot exceed 50 characters.`
+        };
+    }
+    
+    return { isValid: true };
 }
 
 function validateAge(age) {
@@ -196,5 +466,83 @@ function validateAge(age) {
     } else {
         birthdateError.textContent = '';
         return true;
+    }
+}
+
+// Helper function to validate name fields with custom fieldName
+function validateNameField(value, fieldName) {
+    if (!value) {
+        return { isValid: false, message: `${fieldName} is required.` };
+    }
+    
+    // Trim and check length
+    const trimmed = value.trim();
+    if (trimmed.length < 2) {
+        return { isValid: false, message: `${fieldName} must be at least 2 characters.` };
+    }
+    
+    if (trimmed.length > 30) {
+        return { isValid: false, message: `${fieldName} cannot exceed 30 characters.` };
+    }
+    
+    // Check for numbers
+    if (/\d/.test(trimmed)) {
+        return { isValid: false, message: `${fieldName} cannot contain numbers.` };
+    }
+    
+    // Check for invalid characters (allow letters, spaces, and hyphens)
+    if (!/^[a-zA-Z\s-]+$/.test(trimmed)) {
+        return { isValid: false, message: `${fieldName} can only contain letters, spaces, and hyphens.` };
+    }
+    
+    // Check for double spaces or invalid hyphen usage
+    if (/\s{2,}|-{2,}|^-|-$|\s-|-\s/.test(trimmed)) {
+        return { 
+            isValid: false, 
+            message: `${fieldName} has invalid spacing or hyphen usage.` 
+        };
+    }
+    
+    // Check for three or more repeated letters in a row
+    if (/([a-zA-Z])\1{2,}/.test(trimmed)) {
+        return { 
+            isValid: false, 
+            message: `${fieldName} cannot contain three or more repeated letters in a row.`
+        };
+    }
+    
+    // Check for proper capitalization (Firstname Lastname or Lastname-Othername)
+    const words = trimmed.split(/[\s-]+/);
+    for (const word of words) {
+        if (!/^[A-Z][a-z]*$/.test(word)) {
+            return { 
+                isValid: false, 
+                message: `Each part of ${fieldName} must start with an uppercase letter followed by lowercase letters.`
+            };
+        }
+    }
+    
+    return { isValid: true };
+}
+
+// Visual state helpers: invalid (red) and valid (green)
+function setInvalid(inputEl, errorEl, message) {
+    if (inputEl) {
+        inputEl.classList.remove('valid');
+    }
+    if (errorEl) {
+        errorEl.classList.remove('success');
+        errorEl.textContent = message || '';
+    }
+}
+
+function setValid(inputEl, errorEl) {
+    if (inputEl) {
+        inputEl.classList.add('valid');
+    }
+    if (errorEl) {
+        errorEl.classList.add('success');
+        // Clear helper text instead of showing 'Valid'
+        errorEl.textContent = '';
     }
 }

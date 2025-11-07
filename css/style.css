@@ -1,72 +1,510 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    color: #333;
+    background-image: url('../images/ccmartbg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    color: #000000;
     line-height: 1.6;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-.container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
-    padding: 0 20px;
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 15px;
+}
+
+.login-form-wrapper {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 20px 25px;
+    max-width: 100%;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust form elements for better fit */
+#login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+#login-button {
+    width: 100%;
+    padding: 6px;
+    margin: 4px 0;
+    font-size: 0.85rem;
+    background-color: #213E5D;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    height: 30px;
+}
+
+#login-button:hover {
+    background-color: #1a334d;
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Form group styles moved to .form-row section */
+
+.form-group label {
+    display: inline-block;
+    margin: 0;
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: #333;
+    white-space: nowrap;
+    text-align: left;
+    min-width: 90px;
+    flex-shrink: 0;
+    padding-right: 5px;
+}
+
+/* Age input specific styling */
+#registration-form .form-group input#age {
+    width: 180px !important;
+    min-width: 180px !important;
+    max-width: 180px !important;
+    margin-left: 0;
+}
+
+/* Register form input fields */
+#registration-form .form-group input[type="text"],
+#registration-form .form-group input[type="password"],
+#registration-form .form-group input[type="date"],
+#registration-form .form-group input[type="email"],
+#registration-form .form-group input[type="number"] {
+    flex: 1;
+    min-width: 180px;
+    max-width: 100%;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    font-weight: 400;
+    height: 24px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #333;
+    margin: 0;
+    box-sizing: border-box;
+    transition: all 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus,
+.form-group input[type="date"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="number"]:focus {
+    outline: none;
+    border-color: #555;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.password-field {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+}
+
+#login-button {
+    padding: 6px 14px;
+    background-color: #213E5D;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px 0;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    min-width: 80px;
+    width: auto;
+}
+
+#login-button:hover {
+    background-color: #1a334d;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+#login-button:active {
+    background-color: #14273e;
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 0.8rem;
+}
+
+.register-link a {
+    color: #213E5D;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+.required {
+    color: #e74c3c;
+}
+
+.error-message {
+    display: none;
+}
+
+.success-message {
+    color: #27ae60;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #e8f8f0;
+    border-radius: 4px;
+}
+
+.prospect-name-top {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 10px 20px;
+}
+
+/* Site logo */
+.site-logo {
+    height: 40px;  /* Smaller logo size */
+    width: auto;
+    transition: transform 0.2s ease;
+}
+
+/* Logo container */
+.site-logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
 }
 
 header {
-    background: #333;
+    background: #213E5D;
     color: #fff;
-    padding: 1rem 0;
-    border-bottom: #0779e4 3px solid;
+    padding: 0.75rem 2rem;  /* Slightly reduced vertical padding */
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-header .prospect-name {
-    font-size: 1.5rem;
-    font-weight: bold;
-    padding-left: 20px;
-}
-
-header nav {
-    padding-right: 20px;
-}
-
-header ul {
-    padding: 0;
-    margin: 0;
+header nav ul {
+    display: flex;
     list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
 }
 
-header li {
-    display: inline;
-    padding: 0 20px;
-}
-
-header a {
+header nav a {
     color: #fff;
     text-decoration: none;
-    text-transform: uppercase;
+    padding: 0.5rem 1rem;
     font-size: 1rem;
+    transition: background-color 0.2s ease;
+    border-radius: 4px;
+}
+
+/* Hover effect for all navigation links */
+header nav a:hover {
+    background-color: #45678f;
+}
+
+/* Login/Register links - match other navigation items */
+header nav a[href*="login.php"],
+header nav a[href*="register.php"] {
+    color: #fff;
+    font-weight: normal;
+    padding: 0.5rem 1rem;  /* Match other nav items */
+    border: none;  /* Remove border */
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+/* Hover effect for login/register buttons */
+header nav a[href*="login.php"]:hover,
+header nav a[href*="register.php"]:hover {
+    background-color: #45678f;
+}
+
+/* Hover effect for home link */
+header nav a[href*="index.php"]:hover {
+    background-color: #45678f;
+}
+
+/* Subtle hover effect for all links */
+header nav a:hover {
+    opacity: 0.8;
+}
+
+/* Footer Styles */
+footer {
+    background: #213E5D;
+    color: #fff;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 100;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.copyright {
+    font-size: 0.9rem;
+    margin: 0;
+    padding: 0.5rem 0;
 }
 
 main {
-    padding: 20px 0;
+    padding: 5px 0;
 }
 
 h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin: 2px 0 8px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.section-title {
+    text-align: left;
+    font-weight: 600; /* Keeping this semi-bold for section titles as they are headings */
+    margin: 6px 0 3px;
+    padding-left: 3px;
+    font-size: 0.8rem;
+    color: #000000;
+    text-transform: uppercase;
+}
+
+/* Form layout */
+#registration-form {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    width: calc(100% - 40px);
+}
+
+.form-row {
+    width: 100%;
+    margin: 0 0 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+.form-group {
+    flex: 1 1 calc(50% - 10px);
+    min-width: 280px;
+    margin: 0 0 6px 0;
+    padding: 0 5px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Form container with white background */
+#registration-form {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+/* Form title */
+.form-title {
+    text-align: left;
+    width: 100%;
+    margin: 0 0 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 1.3rem;
+    color: #000;
+    font-weight: 500;
+
+/* Vertical divider between columns */
+.form-column:first-child::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    right: 0;
+    width: 2px;
+    height: calc(100% - 10px);
+    background-color: #999;
+    display: block;
+    box-shadow: 1px 0 2px rgba(0,0,0,0.1);
+}
+
+/* Adjust spacing */
+.form-column:first-child {
+    padding-right: 15px;
+}
+
+.form-column:last-child {
+    padding-left: 15px;
+}
+
+/* Ensure form groups have proper spacing */
+.form-group {
+    margin-bottom: 12px;
+}
+
+.full-width {
+    width: 100%;
+    clear: both;
+}
+
+/* Multi-step form */
+.form-step { display: none; }
+.form-step.active {
+    display: block; /* Avoid parent grid that can create a 3rd column effect */
+}
+.two-col {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+.form-step h4,
+.form-step .step-actions { grid-column: 1 / -1; }
+.step-actions { 
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    gap: 8px;
+}
+.step-actions button[type="button"] {
+    width: auto;
+}
+
+/* Address section as two-column grid */
+.address-group {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+.address-group > label { grid-column: 1 / -1; }
+/* Each address field stacks input and its error */
+.address-item {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Account (passwords) side-by-side */
+.account-group {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+.account-item { display: flex; flex-direction: column; }
+.password-field { position: relative; }
+.password-field input { width: 100%; padding-right: 40px; }
+.password-field .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    color: #666;
 }
 
 form {
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    /* remove inner scrolling to avoid scroll inside form */
 }
+
+/* Responsive: stack on small screens */
+@media (max-width: 768px) {
+  .form-step.active { grid-template-columns: 1fr; }
+  .address-group { grid-template-columns: 1fr; }
+  .account-group { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+}
+
+/* Compact Step 2: reduce spacing, keep readability */
+.compact-step { --compact-gap: 10px; }
+.compact-step .two-col { gap: var(--compact-gap); }
+.compact-step .address-group { gap: 8px; }
+.compact-step .account-group { gap: 10px; }
+.compact-step .form-group { margin-bottom: 6px; }
+.compact-step h4 { margin: 6px 0; font-size: 1rem; }
+.compact-step label { font-size: 0.9rem; margin-bottom: 3px; }
+.compact-step input, .compact-step select, .compact-step button { font-size: 0.9rem; line-height: 1.3; padding: 8px 10px; }
+.compact-step .password-field input { padding-right: 34px; }
+.compact-step #password-strength { font-size: 0.85rem; margin-top: 4px; }
+.compact-step .step-actions { margin-top: 8px; }
 
 .form-group {
     margin-bottom: 15px;
@@ -75,26 +513,110 @@ form {
 .form-group label {
     display: block;
     margin-bottom: 5px;
+    font-weight: 400;
+    color: #000000;
 }
 
-.form-group input[type="text"],
-.form-group input[type="password"],
-.form-group input[type="date"],
-.form-group input[type="email"] {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+select,
+textarea {
+    font-weight: 400;  /* Normal weight */
+    color: #000000;  /* Black text */
+    width: 230px;
+    padding: 6px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: #000000;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
 }
 
-.form-group .required {
-    color: red;
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #000000;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
+    outline-offset: 2px;
+    border-color: #213E5D;
+    box-shadow: 0 0 0 2px rgba(33, 62, 93, 0.2);
+    transition: all 0.2s ease-in-out;
 }
 
-.form-group .optional {
-    color: red;
-    font-size: 0.8em;
+input[type="text"]:focus:invalid,
+input[type="password"]:focus:invalid,
+input[type="email"]:focus:invalid,
+input[type="date"]:focus:invalid,
+select:focus:invalid,
+textarea:focus:invalid {
+    outline-color: #e74c3c;
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
+}
+
+/* Green check icon when valid */
+.form-group input.valid {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%231a7f37' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6L9 17l-5-5'/></svg>") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 10px center !important;
+    background-size: 18px 18px !important; /* animates in via transition */
+    padding-right: 38px !important;
+    border-color: #1a7f37 !important;
+    animation: successPop 220ms ease-out;
+}
+
+/* Some browsers overlay native UI on date inputs; fallback to green border only */
+.form-group input[type="date"].valid {
+    background-image: none !important;
+}
+
+/* Avoid icon overlap with eye toggle on password fields */
+.form-group input[type="password"].valid {
+    background-image: none !important;
+}
+
+ 
+
+@keyframes successPop {
+  0% { box-shadow: 0 0 0 0 rgba(26,127,55,0); }
+  60% { box-shadow: 0 0 0 6px rgba(26,127,55,0.16); }
+  100% { box-shadow: 0 0 0 0 rgba(26,127,55,0); }
+}
+
+/* Required field indicators */
+.required,
+.form-group .required,
+.form-group label .required-asterisk {
+    color: #e74c3c; /* Slightly darker red for better visibility */
+    font-weight: bold;
+    margin-left: 2px;
+}
+
+/* Optional text styling */
+.optional,
+.form-group .optional,
+label .optional {
+    font-size: 0.8em !important;
+    margin-left: 4px !important;
+    color:#e74c3c !important; /* Changed to gray for optional text */
+    font-style: italic;
+    display: inline-block;
+}
+
+/* Required asterisk */
+label .required-asterisk {
+    color:red;
+    font-weight: bold;
+    margin-left: 2px;
 }
 
 .error {
@@ -102,6 +624,10 @@ form {
     font-size: 0.9em;
     margin-top: 5px;
 }
+
+/* Success state for helper text and inputs */
+.error.success { color: #1a7f37; }
+.form-group input.valid { border-color: #1a7f37; }
 
 #password-strength {
     margin-top: 5px;
@@ -121,13 +647,13 @@ button {
 }
 
 button:hover {
-    background: #0779e4;
+    background: #45678f;
 }
 
 footer {
     text-align: center;
     padding: 20px;
-    background: #333;
+    background: #213E5D;
     color: #fff;
     position: relative;
     bottom: 0;
@@ -142,4 +668,137 @@ footer {
 .form-group input[name^="country"],
 .form-group input[name^="zip_code"] {
     margin-bottom: 5px;
+}
+
+/* ============================
+   Auth pages centering layout
+   ============================ */
+body.auth-page main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Header + footer combined height buffer */
+    min-height: calc(100vh - 160px);
+    padding: 20px;
+}
+
+/* Keep container centered and constrain width */
+body.auth-page .container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Tighter width for login */
+body.auth-page.login-page .container {
+    max-width: 340px;
+}
+
+/* Slightly wider for the multi-step register form */
+body.auth-page.register-page .container {
+    max-width: 800px;
+    width: calc(100% - 40px);
+    background: transparent;
+    border-radius: 20px;
+    padding: 25px 35px;
+    margin: 20px auto;
+    border: none;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Ensure form expands full container width */
+body.auth-page form {
+    width: 100%;
+    color: #000000;
+}
+
+/* On the login page, make form transparent so container looks transparent */
+body.auth-page.login-page form {
+    background: transparent;
+    box-shadow: none;
+}
+
+/* Make login form compact but readable */
+body.auth-page.login-page form#login-form {
+    padding: 10px 0;
+    margin: 0;
+}
+body.auth-page #form-title,
+body.auth-page .form-title {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    color: #000000;
+    text-align: center;
+}
+
+/* Next/Submit button styling */
+.next-button, .step-actions button[type="submit"], .btn-small, #next-btn, #prev-btn, #login-button {
+    padding: 6px 14px;
+    background-color: #213E5D;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.2s;
+    width: auto;
+    min-width: 80px;
+    text-align: center;
+    display: inline-block;
+    margin: 5px 0;
+}
+
+.next-button:hover, .step-actions button[type="submit"]:hover, #login-button:hover, 
+.btn-small:hover, #next-btn:hover, #prev-btn:hover {
+    background-color: #1a334d;
+}
+
+.next-button:active, .step-actions button[type="submit"]:active, #login-button:active, 
+.btn-small:active, #next-btn:active, #prev-btn:active {
+    background-color: #14273e;
+}
+
+#prev-btn {
+    background-color: #6c757d;
+    order: 1;
+}
+
+#next-btn {
+    order: 2;
+}
+
+body.auth-page.login-page .form-group label {
+    font-size: 0.95rem;
+}
+body.auth-page.login-page input[type="text"],
+body.auth-page.login-page input[type="password"],
+body.auth-page.login-page input[type="email"] {
+    border: 2px solid #999 !important;
+}
+
+body.auth-page.login-page button {
+    font-size: 0.95rem;
+}
+body.auth-page.login-page .password-field input {
+    padding-right: 36px;
+}
+
+@media (max-width: 768px) {
+  body.auth-page main {
+    min-height: calc(100vh - 140px);
+    padding: 16px;
+  }
+  body.auth-page.login-page .container { max-width: 92%; }
+  body.auth-page.register-page .container { 
+    width: calc(100% - 32px);
+    max-width: 100%;
+    margin: 15px auto;
+    box-sizing: border-box;
+    padding: 20px 15px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+}
 }

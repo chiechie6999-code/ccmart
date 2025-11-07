@@ -1,30 +1,42 @@
-<?php
-// session_start() is called in the page scripts that include this header.
-$current_page = basename($_SERVER['PHP_SELF']);
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CCmarket</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="../css/style.css"> <!-- Fallback for pages in subdirectories -->
+    <link rel="stylesheet" href="/ccmart2/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
-<body>
+<body class="auth-page <?php echo basename($_SERVER['PHP_SELF']) === 'login.php' ? 'login-page' : (basename($_SERVER['PHP_SELF']) === 'register.php' ? 'register-page' : ''); ?>">
+    
     <header>
-        <div class="prospect-name">CCmarket</div>
+        <a href="/ccmart2/index.php" class="site-logo-link">
+            <img src="/ccmart2/images/ccmartlogo.svg" alt="CCmarket Logo" class="site-logo" onerror="this.onerror=null;this.src='/ccmart2/images/ccmartlogo.jpg'">
+        </a>
         <nav>
             <ul>
-                <li><a href="index.php">Home</a></li>
-                <?php if ($current_page !== 'login.php'): ?>
-                    <li><a href="login.php">Log-in</a></li>
-                <?php endif; ?>
-                <?php if ($current_page !== 'register.php'): ?>
-                    <li><a href="register.php">Register</a></li>
-                <?php endif; ?>
+                <li><a href="/ccmart2/index.php">Home</a></li>
+                <?php
+                $current_page = basename($_SERVER['PHP_SELF']);
+                $logged_in = isset($_SESSION) && isset($_SESSION['user_id']);
+                if ($logged_in) {
+                    echo '<li><a href="/ccmart2/logout.php">Log-out</a></li>';
+                } else {
+                    if ($current_page === 'login.php') {
+                        // On login page: Home and Register
+                        echo '<li><a href="/ccmart2/register.php">Register</a></li>';
+                    } elseif ($current_page === 'register.php') {
+                        // On register page: Home and Log-in
+                        echo '<li><a href="/ccmart2/login.php">Log-in</a></li>';
+                    } else {
+                        // Default for other auth pages
+                        echo '<li><a href="/ccmart2/login.php">Log-in</a></li>';
+                        echo '<li><a href="/ccmart2/register.php">Register</a></li>';
+                    }
+                }
+                ?>
             </ul>
         </nav>
     </header>
     <main>
-    <div class="container"> <!-- Wrapper for content -->
+        <div class="container">

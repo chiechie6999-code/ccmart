@@ -68,13 +68,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Names
-    if (empty($input['first_name'])) $errors['first_name'] = 'First Name is required.';
-    elseif (!validateName($input['first_name'])) $errors['first_name'] = 'Invalid First Name format.';
+    if (empty($input['first_name'])) {
+        $errors['first_name'] = 'First Name is required.';
+    } else {
+        // Specific message for capitalization of first letter
+        if (preg_match('/^[a-z]/', $input['first_name'])) {
+            $errors['first_name'] = 'First Letter of your name must start with capital';
+        } elseif (!validateName($input['first_name'])) {
+            $errors['first_name'] = 'Invalid First Name format.';
+        }
+    }
 
     if (!validateName($input['middle_name'])) $errors['middle_name'] = 'Invalid Middle Name format.';
 
-    if (empty($input['family_name'])) $errors['family_name'] = 'Family Name is required.';
-    elseif (!validateName($input['family_name'])) $errors['family_name'] = 'Invalid Family Name format.';
+    if (empty($input['family_name'])) {
+        $errors['family_name'] = 'Family Name is required.';
+    } else {
+        if (preg_match('/^[a-z]/', $input['family_name'])) {
+            $errors['family_name'] = 'First Letter of your family name must start with capital';
+        } elseif (!validateName($input['family_name'])) {
+            $errors['family_name'] = 'Invalid Family Name format.';
+        }
+    }
 
     if (!empty($input['name_extension']) && !preg_match('/^[a-zA-Z\s\.]*$/', $input['name_extension'])) {
         $errors['name_extension'] = 'Name Extension contains invalid characters.';
@@ -98,12 +113,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($input['municipality_city'])) $errors['municipality_city'] = 'Municipal/City is required.';
     if (empty($input['province'])) $errors['province'] = 'Province is required.';
     if (empty($input['country'])) $errors['country'] = 'Country is required.';
-    if (empty($input['zip_code'])) $errors['zip_code'] = 'Zip Code is required.';
-
+    if (empty($input['zip_code'])) {
+        $errors['zip_code'] = 'Zip Code is required.';
+    } elseif (!preg_match('/^\d{4,10}$/', $input['zip_code'])) {
+        $errors['zip_code'] = 'Zip Code must contain digits only (4-10).';
+    }
 
     // Username
     if (empty($input['username'])) {
         $errors['username'] = 'Username is required.';
+    } elseif (!preg_match('/^[A-Za-z0-9_]{4,50}$/', $input['username'])) {
+        $errors['username'] = 'Username must be 4-50 characters, letters/numbers/underscore only.';
     } else {
         $stmt = $pdo->prepare("SELECT username FROM users WHERE username = ?");
         $stmt->execute([$input['username']]);
